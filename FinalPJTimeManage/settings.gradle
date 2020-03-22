@@ -1,0 +1,2 @@
+rootProject.name='FinalPJTimeManage'
+include ':app'

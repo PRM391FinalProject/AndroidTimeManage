@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_manage_work"
+        android:title="@string/menu_daily_work"
+        android:visible="true" />
+    <item
+        android:id="@+id/menu_daily"
+        android:title="@string/menu_daily_work" />
+    <item
+        android:id="@+id/menu_report"
+        android:title="@string/menu_report" />
+    <item
+        android:id="@+id/menu_help"
+        android:title="@string/menu_help" />
+    <item
+        android:id="@+id/menu_login_logout"
+        android:title="@string/menu_login" />
+</menu>
