@@ -1,0 +1,4 @@
+<type1>|<name>|<time>|<title>|<deadline>|<notice>
+U1|Study|3000|dosomething|20/3/2000|yes
+<type234>|<name>|<time>|<title>|<days>
+U234|Run|3000|dosomething|T2T3T4T5
