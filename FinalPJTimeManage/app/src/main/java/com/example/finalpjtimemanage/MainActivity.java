@@ -6,13 +6,58 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+import entity.HandlingDataFile;
+import entity.Work;
+
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        HandlingDataFile handle = new HandlingDataFile();
+
+        //get data from file
+        ArrayList<Work> works = handle.GetDataWork();
+        if(!works.isEmpty()){
+            Spinner spinner = findViewById(R.id.spWorks);
+
+            spinner.setOnItemSelectedListener(this);
+            handle.works = works;
+            List<String> workTitles = new ArrayList<>();
+            for(int i=0;i<works.size();i++){
+                workTitles.add(works.get(i).getName());
+            }
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.activity_main, workTitles);
+
+            dataAdapter.setDropDownViewResource(R.layout.activity_main);
+
+            spinner.setAdapter(dataAdapter);
+        }
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     ////Add and handle menu bar

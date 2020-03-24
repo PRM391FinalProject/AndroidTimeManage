@@ -3,13 +3,13 @@ package entity;
 import java.util.ArrayList;
 
 public class HandlingDataFile {
-
-    public ArrayList<Work> SaveDataWork() {
-        ArrayList<Work> works = new ArrayList<>();
-        return works;
+    public ArrayList<Work> works;
+    public ArrayList<Work> GetDataWork() {
+        ArrayList<Work> allWorks = new ArrayList<>();
+        return allWorks;
     }
 
-    public boolean GetDataWork() {
+    public boolean SaveDataWork() {
         return true;
     }
 
