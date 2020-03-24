@@ -3,9 +3,21 @@ package entity;
 import java.util.ArrayList;
 
 public class HandlingDataFile {
-    public ArrayList<Work> works;
+    ////Local variable
+    private ArrayList<Work> works;
+
+    public ArrayList<Work> getWorks() {
+        return works;
+    }
+
+    public void setWorks(ArrayList<Work> works) {
+        this.works = works;
+    }
+
+
     public ArrayList<Work> GetDataWork() {
         ArrayList<Work> allWorks = new ArrayList<>();
+        allWorks.add(new Work("work",11,"something",1));
         return allWorks;
     }
 
