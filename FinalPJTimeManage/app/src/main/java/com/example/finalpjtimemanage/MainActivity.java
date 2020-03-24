@@ -11,6 +11,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,30 +21,54 @@ import entity.HandlingDataFile;
 import entity.Work;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private static int index;
+    public HandlingDataFile handle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        HandlingDataFile handle = new HandlingDataFile();
 
-        //get data from file
-        ArrayList<Work> works = handle.GetDataWork();
-        if(!works.isEmpty()){
-            Spinner spinner = findViewById(R.id.spWorks);
+        if (handle == null) handle = new HandlingDataFile();
+
+        setContentView(R.layout.activity_main);
+
+        ArrayList<Work> works;
+
+        //check current data
+        if (handle.getWorks() != null) {
+            works = handle.getWorks();
+        } else {
+            //get data from file
+            works = handle.GetDataWork();
+        }
+        if (!works.isEmpty()) {
+
+            Spinner spinner = (Spinner) findViewById(R.id.spWorks);
 
             spinner.setOnItemSelectedListener(this);
-            handle.works = works;
+            handle.setWorks(works);
             List<String> workTitles = new ArrayList<>();
-            for(int i=0;i<works.size();i++){
+            for (int i = 0; i < works.size(); i++) {
                 workTitles.add(works.get(i).getName());
             }
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.activity_main, workTitles);
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, workTitles);
 
-            dataAdapter.setDropDownViewResource(R.layout.activity_main);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             spinner.setAdapter(dataAdapter);
+            changeSelectItem();
         }
-        setContentView(R.layout.activity_main);
+    }
+
+    private void changeSelectItem() {
+
+        Spinner spinner = findViewById(R.id.spWorks);
+
+        if (index == 0) index = spinner.getSelectedItemPosition();
+        else spinner.setSelection(index);
+
+        TextView tvNote = findViewById(R.id.tvNote);
+        tvNote.setText(handle.getWorks().get(index).getNote());
     }
 
     @Override
@@ -53,6 +78,32 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+        changeSelectItem();
+    }
+
+    public void btnNextOnClick(View view) {
+        if (index < handle.getWorks().size()) {
+            index++;
+            Spinner spinner = findViewById(R.id.spWorks);
+            spinner.setSelection(index);
+
+            TextView tvNote = findViewById(R.id.tvNote);
+            tvNote.setText(handle.getWorks().get(index).getNote());
+        }
+    }
+
+    public void btnPrevOnClick(View view) {
+        if (index > 0) {
+            index--;
+            Spinner spinner = findViewById(R.id.spWorks);
+            spinner.setSelection(index);
+
+            TextView tvNote = findViewById(R.id.tvNote);
+            tvNote.setText(handle.getWorks().get(index).getNote());
+        }
+    }
+    public void btnCreateNew(View view){
+        startActivity(new Intent(this, CreateNewWorkActivity.class));
     }
 
     @Override

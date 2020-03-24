@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateNewWorkActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCreateNewName"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:hint="@string/create_new_tilName_hint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.054">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tieCreateNewName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/create_new_tieName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCreateNewNote"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:hint="@string/create_new_Note"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilCreateNewName"
+        app:layout_constraintVertical_bias="0.032">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tieCreateNewNote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/create_new_Note" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/spCreateNewType"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilCreateNewNote"
+        app:layout_constraintVertical_bias="0.048" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCreateNewDeadLine"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spCreateNewType"
+        app:layout_constraintVertical_bias="0.054">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tieCreateNewDeadline"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Deadine" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/cbCreateNewNotice"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:text="Notice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilCreateNewDeadLine"
+        app:layout_constraintVertical_bias="0.075" />
+
+    <CheckBox
+        android:id="@+id/cbCreateNewRestTime"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:text="Rest Time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbCreateNewNotice"
+        app:layout_constraintVertical_bias="0.072" />
+
+    <RadioGroup
+        android:id="@+id/rgCreateNewDailies"
+        android:layout_width="350dp"
+        android:layout_height="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spCreateNewType"
+        app:layout_constraintVertical_bias="0.102">
+
+        <RadioButton
+            android:id="@+id/rdCreateNewMon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Monday" />
+
+        <RadioButton
+            android:id="@+id/rdCreateNewTue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tuesday" />
+
+        <RadioButton
+            android:id="@+id/rdCreateNewWed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wednesday" />
+
+        <RadioButton
+            android:id="@+id/rdCreateNewThu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thursday" />
+
+        <RadioButton
+            android:id="@+id/rdCreateNewFri"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Friday" />
+
+        <RadioButton
+            android:id="@+id/rdCreateNewSat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Saturday" />
+
+        <RadioButton
+            android:id="@+id/rdCreateNewSun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sunday" />
+
+        <RadioButton
+            android:id="@+id/rdCreateNewAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Allday" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnCreateNewCreate"
+        android:layout_width="105dp"
+        android:layout_height="56dp"
+        android:drawableEnd="@drawable/ic_add"
+        android:text="@string/btnCreateNew"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgCreateNewDailies"
+        app:layout_constraintVertical_bias="0.636" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

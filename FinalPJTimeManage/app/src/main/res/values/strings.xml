@@ -9,6 +9,17 @@
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="tvNote_SampleText">No current work yet. Create new?</string>
-    <string name="btnCreateNew">Create New</string>
+    <string name="btnCreateNew">New</string>
     <string name="menu_home">Home</string>
+    <string name="main_edit">Edit</string>
+    <string name="create_new_name_hint">Work</string>
+    <string name="create_new_tieName">Work Title</string>
+    <string name="create_new_tilName_hint">Work Title</string>
+    <string name="create_new_Note">Note</string>
+    <string-array name="work_type">
+        <item>U1 (Important - Emergency)</item>
+        <item>U2 (Important - Not Emergency)</item>
+        <item>U3 (Not Important - Emergency)</item>
+        <item>U4 (Not Important - Not Emergency)</item>
+    </string-array>
 </resources>

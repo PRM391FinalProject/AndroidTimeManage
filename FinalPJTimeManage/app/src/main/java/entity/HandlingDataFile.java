@@ -18,6 +18,11 @@ public class HandlingDataFile {
     public ArrayList<Work> GetDataWork() {
         ArrayList<Work> allWorks = new ArrayList<>();
         allWorks.add(new Work("work",11,"something",1));
+        allWorks.add(new Work("work2",11,"something",1));
+        allWorks.add(new Work("work3",11,"something",1));
+        allWorks.add(new Work("work4",11,"something",1));
+        allWorks.add(new Work("work5",11,"something",1));
+        allWorks.add(new Work("work7",11,"something",1));
         return allWorks;
     }
 

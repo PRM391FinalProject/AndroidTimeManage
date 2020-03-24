@@ -13,13 +13,14 @@
         android:layout_height="55dp"
         android:background="#2196F3"
         android:drawableEnd="@drawable/ic_arrow"
+        android:onClick="btnNextOnClick"
         android:text="@string/next"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPrev"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.862"
+        app:layout_constraintHorizontal_bias="0.824"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.798" />
+        app:layout_constraintTop_toTopOf="@+id/btnPrev"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnPrev"
@@ -27,46 +28,65 @@
         android:layout_height="55dp"
         android:background="#2196F3"
         android:drawableStart="@drawable/ic_left_arrow"
+        android:onClick="btnPrevOnClick"
         android:text="@string/previous"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.182"
+        app:layout_constraintHorizontal_bias="0.206"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.798" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNote"
+        app:layout_constraintVertical_bias="0.297" />
 
     <TextView
         android:id="@+id/tvNote"
-        android:layout_width="313dp"
+        android:layout_width="300dp"
         android:layout_height="180dp"
         android:text="@string/tvNote_SampleText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.599" />
+        app:layout_constraintTop_toBottomOf="@+id/spWorks"
+        app:layout_constraintVertical_bias="0.461" />
 
     <Button
         android:id="@+id/btnCreateNew"
-        android:layout_width="214dp"
+        android:layout_width="120dp"
         android:layout_height="48dp"
         android:drawableEnd="@drawable/ic_add"
+        android:onClick="btnCreateNew"
         android:text="@string/btnCreateNew"
         app:layout_constraintBottom_toTopOf="@+id/tvNote"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spWorks" />
+        app:layout_constraintEnd_toEndOf="@+id/spWorks"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/btnMainScreenEdit"
+        app:layout_constraintTop_toBottomOf="@+id/spWorks"
+        app:layout_constraintVertical_bias="0.537" />
 
     <Spinner
         android:id="@+id/spWorks"
-        android:layout_width="413dp"
-        android:layout_height="83dp"
+        android:layout_width="318dp"
+        android:layout_height="78dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.178" />
+
+    <Button
+        android:id="@+id/btnMainScreenEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="120dp"
+        android:height="48dp"
+        android:drawableEnd="@drawable/ic_edit"
+        android:text="@string/main_edit"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCreateNew"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/spWorks"
+        app:layout_constraintTop_toTopOf="@+id/btnCreateNew"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
