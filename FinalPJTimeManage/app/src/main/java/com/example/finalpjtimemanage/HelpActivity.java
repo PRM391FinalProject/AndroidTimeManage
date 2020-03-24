@@ -7,14 +7,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class DailyWorkActivity extends AppCompatActivity {
+public class HelpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daily_work);
+        setContentView(R.layout.activity_help);
     }
-
 
 
     ////Add and handle menu bar
@@ -29,6 +28,9 @@ public class DailyWorkActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //respond to menu item selection
         switch (item.getItemId()) {
+            case R.id.menu_home:
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
             case R.id.menu_daily:
                 startActivity(new Intent(this, DailyWorkActivity.class));
                 return true;
@@ -52,4 +54,5 @@ public class DailyWorkActivity extends AppCompatActivity {
 
         }
     }
+
 }

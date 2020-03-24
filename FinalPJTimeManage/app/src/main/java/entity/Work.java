@@ -4,11 +4,14 @@ public class Work {
     private String name;
     private double time;
     private String note;
+    private int type;
 
-    public Work(String name, double time, String note) {
-        this.name = name;
-        this.time = time;
-        this.note = note;
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -37,4 +40,13 @@ public class Work {
 
     public Work() {
     }
+
+    public Work(String name, double time, String note, int type) {
+        this.name = name;
+        this.time = time;
+        this.note = note;
+        this.type = type;
+    }
+
+
 }
