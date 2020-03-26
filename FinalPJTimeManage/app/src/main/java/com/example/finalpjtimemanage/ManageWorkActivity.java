@@ -29,24 +29,32 @@ public class ManageWorkActivity extends AppCompatActivity {
         //respond to menu item selection
         switch (item.getItemId()) {
             case R.id.menu_home:
-                startActivity(new Intent(this, MainActivity.class));
+                Intent intent= new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                finish();
                 return true;
             case R.id.menu_daily:
                 startActivity(new Intent(this, DailyWorkActivity.class));
+                finish();
                 return true;
             case R.id.menu_help:
                 startActivity(new Intent(this, HelpActivity.class));
+                finish();
                 return true;
             case R.id.menu_manage_work:
                 startActivity(new Intent(this, ManageWorkActivity.class));
+                finish();
                 return true;
             case R.id.menu_report:
                 startActivity(new Intent(this, ReportActivity.class));
+                finish();
                 return true;
             case R.id.menu_login_logout:
                 if (item.getTitle().equals(getString(R.string.menu_login))) {
                     startActivity(new Intent(this, LoginActivity.class));
                 }
+                finish();
                 return true;
 
             default:

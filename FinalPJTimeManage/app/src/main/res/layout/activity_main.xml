@@ -81,12 +81,24 @@
         android:width="120dp"
         android:height="48dp"
         android:drawableEnd="@drawable/ic_edit"
+        android:onClick="btnEditOnClick"
         android:text="@string/main_edit"
         app:layout_constraintBottom_toBottomOf="@+id/btnCreateNew"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/spWorks"
         app:layout_constraintTop_toTopOf="@+id/btnCreateNew"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btnMainScreenEdit"
+        app:layout_constraintEnd_toEndOf="@+id/spWorks"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/spWorks"
+        app:layout_constraintTop_toBottomOf="@+id/spWorks"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

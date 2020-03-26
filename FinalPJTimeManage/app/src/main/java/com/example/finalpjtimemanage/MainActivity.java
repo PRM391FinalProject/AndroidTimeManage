@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -21,8 +20,9 @@ import entity.HandlingDataFile;
 import entity.Work;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private static int index;
-    public HandlingDataFile handle;
+    public static int index;
+    public static boolean EDIT_FLAG = false;
+    public static HandlingDataFile handle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         if (index == 0) index = spinner.getSelectedItemPosition();
         else spinner.setSelection(index);
+        double time = handle.getWorks().get(index).getTime();
+        TextView timer = findViewById(R.id.tvTimer);
+//        timer.setText(time%3600 + ":" + time/60%60 + ":" + time%3600);
 
         TextView tvNote = findViewById(R.id.tvNote);
         tvNote.setText(handle.getWorks().get(index).getNote());
@@ -78,15 +81,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+
         changeSelectItem();
     }
 
     public void btnNextOnClick(View view) {
-        if (index < handle.getWorks().size()) {
+        if (index < handle.getWorks().size()-1) {
             index++;
             Spinner spinner = findViewById(R.id.spWorks);
             spinner.setSelection(index);
-
             TextView tvNote = findViewById(R.id.tvNote);
             tvNote.setText(handle.getWorks().get(index).getNote());
         }
@@ -102,8 +105,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             tvNote.setText(handle.getWorks().get(index).getNote());
         }
     }
-    public void btnCreateNew(View view){
-        startActivity(new Intent(this, CreateNewWorkActivity.class));
+
+    public void btnCreateNew(View view) {
+        EDIT_FLAG = false;
+        startActivity(new Intent(this, CreateEditWorkActivity.class));
+    }
+
+    public void btnEditOnClick(View view) {
+        EDIT_FLAG = true;
+        startActivity(new Intent(this, CreateEditWorkActivity.class));
     }
 
     @Override
@@ -124,7 +134,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //respond to menu item selection
         switch (item.getItemId()) {
             case R.id.menu_home:
-                startActivity(new Intent(this, MainActivity.class));
+                Intent intent= new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_daily:
                 startActivity(new Intent(this, DailyWorkActivity.class));
@@ -149,5 +161,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         }
     }
+
 
 }

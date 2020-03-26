@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditWorkActivity"></activity>
-        <activity android:name=".CreateNewWorkActivity" />
+        <activity android:name=".CreateEditWorkActivity" />
         <activity android:name=".HelpActivity" />
         <activity android:name=".ReportActivity" />
         <activity android:name=".DailyWorkActivity" />

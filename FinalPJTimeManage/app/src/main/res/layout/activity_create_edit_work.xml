@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateNewWorkActivity">
+    tools:context=".CreateEditWorkActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilCreateNewName"
@@ -35,7 +35,7 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilCreateNewName"
-        app:layout_constraintVertical_bias="0.032">
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tieCreateNewNote"
@@ -53,7 +53,7 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilCreateNewNote"
-        app:layout_constraintVertical_bias="0.048" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilCreateNewDeadLine"
@@ -64,7 +64,7 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spCreateNewType"
-        app:layout_constraintVertical_bias="0.054">
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tieCreateNewDeadline"
@@ -83,7 +83,8 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilCreateNewDeadLine"
-        app:layout_constraintVertical_bias="0.075" />
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <CheckBox
         android:id="@+id/cbCreateNewRestTime"
@@ -95,80 +96,35 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cbCreateNewNotice"
-        app:layout_constraintVertical_bias="0.072" />
-
-    <RadioGroup
-        android:id="@+id/rgCreateNewDailies"
-        android:layout_width="350dp"
-        android:layout_height="250dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spCreateNewType"
-        app:layout_constraintVertical_bias="0.102">
-
-        <RadioButton
-            android:id="@+id/rdCreateNewMon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Monday" />
-
-        <RadioButton
-            android:id="@+id/rdCreateNewTue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tuesday" />
-
-        <RadioButton
-            android:id="@+id/rdCreateNewWed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Wednesday" />
-
-        <RadioButton
-            android:id="@+id/rdCreateNewThu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Thursday" />
-
-        <RadioButton
-            android:id="@+id/rdCreateNewFri"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Friday" />
-
-        <RadioButton
-            android:id="@+id/rdCreateNewSat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Saturday" />
-
-        <RadioButton
-            android:id="@+id/rdCreateNewSun"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sunday" />
-
-        <RadioButton
-            android:id="@+id/rdCreateNewAll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Allday" />
-
-    </RadioGroup>
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnCreateNewCreate"
         android:layout_width="105dp"
         android:layout_height="56dp"
         android:drawableEnd="@drawable/ic_add"
+        android:onClick="btnNewOnClick"
         android:text="@string/btnCreateNew"
         android:textAlignment="viewStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.251"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgCreateNewDailies"
-        app:layout_constraintVertical_bias="0.636" />
+        app:layout_constraintTop_toBottomOf="@+id/cbCreateNewRestTime"
+        app:layout_constraintVertical_bias="0.633" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="105dp"
+        android:layout_height="56dp"
+        android:drawableEnd="@drawable/ic_left_arrow"
+        android:onClick="btnBackOnClick"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCreateNewCreate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toEndOf="@+id/btnCreateNewCreate"
+        app:layout_constraintTop_toTopOf="@+id/btnCreateNewCreate"
+        app:layout_constraintVertical_bias="0.633" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

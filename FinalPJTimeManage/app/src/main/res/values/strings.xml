@@ -16,6 +16,7 @@
     <string name="create_new_tieName">Work Title</string>
     <string name="create_new_tilName_hint">Work Title</string>
     <string name="create_new_Note">Note</string>
+    <string name="btnEdit">Edit</string>
     <string-array name="work_type">
         <item>U1 (Important - Emergency)</item>
         <item>U2 (Important - Not Emergency)</item>
