@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,8 +37,24 @@ public class CreateEditWorkActivity extends AppCompatActivity {
             btnText = getResources().getString(R.string.btnCreateNew);
             btnImg = R.drawable.ic_add;
         } else {
+            TextInputEditText name = findViewById(R.id.tieCreateNewName);
+            TextInputEditText note = findViewById(R.id.tieCreateNewNote);
+            Spinner spinner = findViewById(R.id.spCreateNewType);
+            CheckBox notice = findViewById(R.id.cbCreateNewNotice);
+            CheckBox rest = findViewById(R.id.cbCreateNewRestTime);
+
+            spinner.setVisibility(View.GONE);
+
             btnText = getResources().getString(R.string.btnEdit);
             btnImg = R.drawable.ic_edit;
+            Work temp = MainActivity.handle.getWorks().get(MainActivity.index);
+            if(temp.getType()==1){
+                U1Work u1Work = (U1Work) MainActivity.handle.getWorks().get(MainActivity.index);
+                name.setText(u1Work.getName());
+                note.setText(u1Work.getName());
+                notice.setChecked(u1Work.isNotice());
+                rest.setChecked(u1Work.isRest());
+            }
         }
 
 

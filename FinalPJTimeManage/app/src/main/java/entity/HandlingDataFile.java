@@ -1,5 +1,6 @@
 package entity;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class HandlingDataFile {
@@ -17,7 +18,7 @@ public class HandlingDataFile {
 
     public ArrayList<Work> GetDataWork() {
         ArrayList<Work> allWorks = new ArrayList<>();
-        allWorks.add(new Work("work",11,"something",1));
+        allWorks.add(new U1Work("work",11,"something",1, new Date(2000),true,true));
         allWorks.add(new Work("work2",11,"something",1));
         allWorks.add(new Work("work3",11,"something",1));
         allWorks.add(new Work("work4",11,"something",1));

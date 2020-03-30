@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 public class ManageWorkActivity extends AppCompatActivity {
 
@@ -13,6 +14,12 @@ public class ManageWorkActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_work);
+        //instantiate custom adapter
+        CustomAdapter adapter = new CustomAdapter(MainActivity.handle.getWorks(), this);
+
+        //handle listView and assign adapter
+        ListView lView = (ListView)findViewById(R.id.lvManageWorkList);
+        lView.setAdapter(adapter);
     }
 
 

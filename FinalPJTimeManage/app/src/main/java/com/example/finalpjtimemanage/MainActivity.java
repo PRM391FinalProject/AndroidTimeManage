@@ -1,9 +1,13 @@
 package com.example.finalpjtimemanage;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Handler.Callback;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +19,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import entity.HandlingDataFile;
 import entity.Work;
@@ -23,7 +29,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public static int index;
     public static boolean EDIT_FLAG = false;
     public static HandlingDataFile handle;
+    public static long tics;
+    private TextView text;
+    final Handler h = new Handler(new Callback(){
 
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            int seconds = (int) (tics / 1000);
+            int minutes = seconds / 60;
+            seconds     = seconds % 60;
+            text.setText(String.format("%d:%02d", minutes, seconds));
+            tics++;
+            return false;
+        }
+    });
+    class firstTask extends TimerTask {
+
+        @Override
+        public void run() {
+            h.sendEmptyMessage(0);
+        }
+    }
+    Timer timer = new Timer();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             spinner.setAdapter(dataAdapter);
             changeSelectItem();
         }
+
     }
 
     private void changeSelectItem() {
