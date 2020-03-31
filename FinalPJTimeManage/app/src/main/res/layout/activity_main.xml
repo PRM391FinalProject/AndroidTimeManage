@@ -96,23 +96,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/btnMainScreenEdit"
         app:layout_constraintEnd_toEndOf="@+id/spWorks"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="@+id/spWorks"
         app:layout_constraintTop_toBottomOf="@+id/spWorks"
         app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/btStartStop"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:width="60dp"
-        android:height="60dp"
-        android:foreground="@drawable/ic_multimedia"
-        app:layout_constraintBottom_toTopOf="@+id/tvNote"
-        app:layout_constraintEnd_toEndOf="@+id/btnCreateNew"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="@+id/btnMainScreenEdit"
-        app:layout_constraintTop_toTopOf="@+id/btnCreateNew"
-        app:layout_constraintVertical_bias="0.756" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

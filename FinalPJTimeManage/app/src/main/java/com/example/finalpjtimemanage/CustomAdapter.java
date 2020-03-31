@@ -14,8 +14,10 @@ import java.util.ArrayList;
 
 import entity.Work;
 
+import static com.example.finalpjtimemanage.MainActivity.index;
+
 public class CustomAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<Work> list = new ArrayList<>();
+    private ArrayList<Work> list;
     private Context context;
 
 
@@ -68,6 +70,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 MainActivity.EDIT_FLAG = true;
+                index = position;
                 context.startActivity(new Intent(context, CreateEditWorkActivity.class));
             }
         });

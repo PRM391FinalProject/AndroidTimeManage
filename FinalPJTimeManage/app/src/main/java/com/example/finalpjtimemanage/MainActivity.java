@@ -1,6 +1,5 @@
 package com.example.finalpjtimemanage;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,11 +10,9 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,39 +22,26 @@ import java.util.TimerTask;
 import entity.HandlingDataFile;
 import entity.Work;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     public static int index;
     public static boolean EDIT_FLAG = false;
     public static HandlingDataFile handle;
-    public static long tics;
-    private TextView text;
-    final Handler h = new Handler(new Callback(){
+    public static long tics = 0;
+    Timer timer;
+    public static TextView note;
+    public static TextView time;
+    public static Spinner spinnerWork;
 
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
-            int seconds = (int) (tics / 1000);
-            int minutes = seconds / 60;
-            seconds     = seconds % 60;
-            text.setText(String.format("%d:%02d", minutes, seconds));
-            tics++;
-            return false;
-        }
-    });
-    class firstTask extends TimerTask {
-
-        @Override
-        public void run() {
-            h.sendEmptyMessage(0);
-        }
-    }
-    Timer timer = new Timer();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         if (handle == null) handle = new HandlingDataFile();
 
-        setContentView(R.layout.activity_main);
+        note = findViewById(R.id.tvNote);
+        time = findViewById(R.id.tvTimer);
+        spinnerWork = findViewById(R.id.spWorks);
 
         ArrayList<Work> works;
 
@@ -69,10 +53,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             works = handle.GetDataWork();
         }
         if (!works.isEmpty()) {
+            spinnerWork.post(new Runnable() {
+                @Override
+                public void run() {
+                    MainSpinnerInteractListener listener = new MainSpinnerInteractListener();
+                    spinnerWork.setOnItemSelectedListener(listener);
 
-            Spinner spinner = (Spinner) findViewById(R.id.spWorks);
-
-            spinner.setOnItemSelectedListener(this);
+                }
+            });
+            //spinnerWork.setOnTouchListener(listener);
             handle.setWorks(works);
             List<String> workTitles = new ArrayList<>();
             for (int i = 0; i < works.size(); i++) {
@@ -82,55 +71,38 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            spinner.setAdapter(dataAdapter);
-            changeSelectItem();
+            spinnerWork.setAdapter(dataAdapter);
+
+            note.setText(handle.getWorks().get(index).getNote());
         }
 
+        //Timer
+        tics = handle.getWorks().get(index).getTime() == 0 ? System.currentTimeMillis() : handle.getWorks().get(index).getTime();
+
+        timer = new Timer();
+        timer.schedule(new firstTask(), 0, 500);
+
     }
 
-    private void changeSelectItem() {
-
-        Spinner spinner = findViewById(R.id.spWorks);
-
-        if (index == 0) index = spinner.getSelectedItemPosition();
-        else spinner.setSelection(index);
-        double time = handle.getWorks().get(index).getTime();
-        TextView timer = findViewById(R.id.tvTimer);
-//        timer.setText(time%3600 + ":" + time/60%60 + ":" + time%3600);
-
-        TextView tvNote = findViewById(R.id.tvNote);
-        tvNote.setText(handle.getWorks().get(index).getNote());
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // On selecting a spinner item
-        String item = parent.getItemAtPosition(position).toString();
-
-        // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-
-        changeSelectItem();
-    }
 
     public void btnNextOnClick(View view) {
-        if (index < handle.getWorks().size()-1) {
+        if (index < handle.getWorks().size() - 1) {
+            handle.getWorks().get(index).setTime(tics);
             index++;
-            Spinner spinner = findViewById(R.id.spWorks);
-            spinner.setSelection(index);
-            TextView tvNote = findViewById(R.id.tvNote);
-            tvNote.setText(handle.getWorks().get(index).getNote());
+            spinnerWork.setSelection(index);
+            note.setText(handle.getWorks().get(index).getNote());
+            tics = handle.getWorks().get(index).getTime() == 0 ? System.currentTimeMillis() : handle.getWorks().get(index).getTime();
+
         }
     }
 
     public void btnPrevOnClick(View view) {
         if (index > 0) {
+            handle.getWorks().get(index).setTime(tics);
             index--;
-            Spinner spinner = findViewById(R.id.spWorks);
-            spinner.setSelection(index);
-
-            TextView tvNote = findViewById(R.id.tvNote);
-            tvNote.setText(handle.getWorks().get(index).getNote());
+            spinnerWork.setSelection(index);
+            note.setText(handle.getWorks().get(index).getNote());
+            tics = handle.getWorks().get(index).getTime() == 0 ? System.currentTimeMillis() : handle.getWorks().get(index).getTime();
         }
     }
 
@@ -142,11 +114,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void btnEditOnClick(View view) {
         EDIT_FLAG = true;
         startActivity(new Intent(this, CreateEditWorkActivity.class));
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     ////Add and handle menu bar
@@ -162,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //respond to menu item selection
         switch (item.getItemId()) {
             case R.id.menu_home:
-                Intent intent= new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
@@ -190,5 +157,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
+
+    //timer
+    final Handler h = new Handler(new Callback() {
+
+        @Override
+        public boolean handleMessage(Message msg) {
+            double millis = System.currentTimeMillis() - tics;
+            int seconds = (int) (millis / 1000);
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+
+            time.setText(String.format("Current work time: %d:%02d", minutes, seconds));
+            return false;
+        }
+    });
+
+    class firstTask extends TimerTask {
+
+        @Override
+        public void run() {
+            h.sendEmptyMessage(0);
+        }
+    }
+
+    ;
 
 }

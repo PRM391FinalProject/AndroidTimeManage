@@ -2,7 +2,7 @@ package entity;
 
 public class Work {
     private String name;
-    private double time;
+    private long time;
     private String note;
     private int type;
 
@@ -22,11 +22,11 @@ public class Work {
         this.name = name;
     }
 
-    public double getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(double time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
@@ -41,7 +41,7 @@ public class Work {
     public Work() {
     }
 
-    public Work(String name, double time, String note, int type) {
+    public Work(String name, long time, String note, int type) {
         this.name = name;
         this.time = time;
         this.note = note;

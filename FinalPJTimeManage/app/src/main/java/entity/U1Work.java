@@ -34,7 +34,7 @@ private boolean rest;
     public U1Work() {
     }
 
-    public U1Work(String name, double time, String note, int type, Date deadLine, boolean notice, boolean rest) {
+    public U1Work(String name, long time, String note, int type, Date deadLine, boolean notice, boolean rest) {
         super(name, time, note, type);
         this.deadLine = deadLine;
         this.notice = notice;

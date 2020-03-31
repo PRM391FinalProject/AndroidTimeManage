@@ -51,7 +51,7 @@ public class CreateEditWorkActivity extends AppCompatActivity {
             if(temp.getType()==1){
                 U1Work u1Work = (U1Work) MainActivity.handle.getWorks().get(MainActivity.index);
                 name.setText(u1Work.getName());
-                note.setText(u1Work.getName());
+                note.setText(u1Work.getNote());
                 notice.setChecked(u1Work.isNotice());
                 rest.setChecked(u1Work.isRest());
             }

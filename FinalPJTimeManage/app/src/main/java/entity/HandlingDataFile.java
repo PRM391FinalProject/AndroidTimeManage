@@ -18,12 +18,12 @@ public class HandlingDataFile {
 
     public ArrayList<Work> GetDataWork() {
         ArrayList<Work> allWorks = new ArrayList<>();
-        allWorks.add(new U1Work("work",11,"something",1, new Date(2000),true,true));
-        allWorks.add(new Work("work2",11,"something",1));
-        allWorks.add(new Work("work3",11,"something",1));
-        allWorks.add(new Work("work4",11,"something",1));
-        allWorks.add(new Work("work5",11,"something",1));
-        allWorks.add(new Work("work7",11,"something",1));
+        allWorks.add(new U1Work("work",0,"something",1, new Date(2000),true,true));
+        allWorks.add(new U1Work("work2",0,"Someone",1, new Date(2000),true,true));
+        allWorks.add(new U1Work("work3",0,"somewhere",1, new Date(2000),true,true));
+        allWorks.add(new U1Work("work4",0,"sometime",1, new Date(2000),true,true));
+        allWorks.add(new U1Work("work5",0,"something",1, new Date(2000),true,true));
+        allWorks.add(new U1Work("work6",0,"something",1, new Date(2000),true,true));
         return allWorks;
     }
 
