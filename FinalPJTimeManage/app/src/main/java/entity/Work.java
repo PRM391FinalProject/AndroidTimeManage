@@ -48,5 +48,9 @@ public class Work {
         this.type = type;
     }
 
-
+    public Work(long time, String note, int type) {
+        this.time = time;
+        this.note = note;
+        this.type = type;
+    }
 }

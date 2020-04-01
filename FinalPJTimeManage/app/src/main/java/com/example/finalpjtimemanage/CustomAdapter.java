@@ -14,7 +14,10 @@ import java.util.ArrayList;
 
 import entity.Work;
 
+import static com.example.finalpjtimemanage.MainActivity.db;
 import static com.example.finalpjtimemanage.MainActivity.index;
+import static com.example.finalpjtimemanage.MainActivity.keys;
+import static com.example.finalpjtimemanage.MainActivity.works;
 
 public class CustomAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<Work> list;
@@ -62,6 +65,9 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {//do something
                 //MainActivity.handle.getWorks().remove(position);
+                String key = keys.get(position);
+                works.remove(key);
+                db.child(key).removeValue();
                 list.remove(position); //or some other task
                 notifyDataSetChanged();
             }

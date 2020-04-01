@@ -8,6 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
+import entity.Work;
+
 public class ManageWorkActivity extends AppCompatActivity {
 
     @Override
@@ -15,7 +19,7 @@ public class ManageWorkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_work);
         //instantiate custom adapter
-        CustomAdapter adapter = new CustomAdapter(MainActivity.handle.getWorks(), this);
+        CustomAdapter adapter = new CustomAdapter(new ArrayList<Work>(MainActivity.works.values()), this);
 
         //handle listView and assign adapter
         ListView lView = (ListView)findViewById(R.id.lvManageWorkList);

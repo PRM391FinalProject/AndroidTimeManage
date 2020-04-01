@@ -6,6 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import entity.Work;
+
+import static com.example.finalpjtimemanage.MainActivity.db;
+import static com.example.finalpjtimemanage.MainActivity.works;
 
 public class ReportActivity extends AppCompatActivity {
 
@@ -16,7 +26,14 @@ public class ReportActivity extends AppCompatActivity {
 
 
     }
-
+    public void onClick(View view){
+        Map<String, Object> updateWorks = new HashMap<>();
+        for(String key:works.keySet()){
+            updateWorks.put(key,works.get(key));
+        }
+        db.updateChildren(updateWorks);
+        finish();
+    }
 
     ////Add and handle menu bar
     @Override

@@ -17,10 +17,16 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import entity.U1Work;
 import entity.U234Work;
 import entity.Work;
+
+import static com.example.finalpjtimemanage.MainActivity.db;
+import static com.example.finalpjtimemanage.MainActivity.keys;
+import static com.example.finalpjtimemanage.MainActivity.works;
 
 public class CreateEditWorkActivity extends AppCompatActivity {
 
@@ -47,9 +53,9 @@ public class CreateEditWorkActivity extends AppCompatActivity {
 
             btnText = getResources().getString(R.string.btnEdit);
             btnImg = R.drawable.ic_edit;
-            Work temp = MainActivity.handle.getWorks().get(MainActivity.index);
+            Work temp = MainActivity.works.get(keys.get(MainActivity.index));
             if(temp.getType()==1){
-                U1Work u1Work = (U1Work) MainActivity.handle.getWorks().get(MainActivity.index);
+                U1Work u1Work = (U1Work) temp;
                 name.setText(u1Work.getName());
                 note.setText(u1Work.getNote());
                 notice.setChecked(u1Work.isNotice());
@@ -98,36 +104,44 @@ public class CreateEditWorkActivity extends AppCompatActivity {
         TextInputEditText date = findViewById(R.id.tieCreateNewDeadline);
         CheckBox notice = findViewById(R.id.cbCreateNewNotice);
         CheckBox rest = findViewById(R.id.cbCreateNewRestTime);
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        //SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
         switch (spinner.getSelectedItemPosition()) {
-            case 1:
-                if (MainActivity.EDIT_FLAG) {
+            case 0:
+                //new
+                if (!MainActivity.EDIT_FLAG) {
                     try {
-                        U1Work work = new U1Work(name.getText().toString(), 0, note.getText().toString(), 1, format.parse(date.getText().toString()), notice.isChecked(), rest.isChecked());
-                        MainActivity.handle.getWorks().add(work);
+                        U1Work work = new U1Work(name.getText().toString(), 0, note.getText().toString(), 1, date.getText().toString(), notice.isChecked(), rest.isChecked());
+                        db.push().setValue(work);
                         finish();
-                    } catch (ParseException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                         break;
                     }
-                }else{
+                }
+                //update
+                else{
                     try {
 
-                        U1Work work = (U1Work) MainActivity.handle.getWorks().get(MainActivity.index);
+                        U1Work work = (U1Work) MainActivity.works.get(keys.get(MainActivity.index));
                         work.setName(name.getText().toString());
                         work.setNote(note.getText().toString());
                         work.setNotice(notice.isChecked());
                         work.setRest(rest.isChecked());
-                        work.setDeadLine(format.parse(date.getText().toString()));
+                        work.setDeadLine(date.getText().toString());
+
+                        MainActivity.works.replace(keys.get(MainActivity.index),work);
+                        Map<String, Object> childUpdates = new HashMap<>();
+                        childUpdates.put(keys.get(MainActivity.index),work);
+                        db.updateChildren(childUpdates);
                     }catch (Exception e){
 
                     }
                 }
 
+            case 1:
             case 2:
             case 3:
-            case 4:
                 break;
         }
     }

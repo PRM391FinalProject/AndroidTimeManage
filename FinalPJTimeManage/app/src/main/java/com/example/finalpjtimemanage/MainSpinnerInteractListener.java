@@ -5,38 +5,41 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import static com.example.finalpjtimemanage.MainActivity.handle;
+import entity.Work;
+
 import static com.example.finalpjtimemanage.MainActivity.index;
+import static com.example.finalpjtimemanage.MainActivity.keys;
 import static com.example.finalpjtimemanage.MainActivity.note;
 import static com.example.finalpjtimemanage.MainActivity.tics;
 import static com.example.finalpjtimemanage.MainActivity.spinnerWork;
+import static com.example.finalpjtimemanage.MainActivity.works;
 
 public class MainSpinnerInteractListener implements AdapterView.OnItemSelectedListener, View.OnTouchListener {
 
-    boolean userSelect = false;
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        userSelect = true;
         return false;
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (userSelect) {
 
-            // On selecting a spinner item
-            String item = parent.getItemAtPosition(position).toString();
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
 
-            // Showing selected spinner item
-            Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-            handle.getWorks().get(index).setTime(tics);
-            if (index == 0) index = spinnerWork.getSelectedItemPosition();
-            else spinnerWork.setSelection(index);
-            note.setText(handle.getWorks().get(index).getNote());
-            tics = handle.getWorks().get(index).getTime() == 0 ? System.currentTimeMillis() : handle.getWorks().get(index).getTime();
-            userSelect = false;
-        }
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+
+        Work work = works.get(keys.get(index));
+        work.setTime(tics);
+
+        index = spinnerWork.getSelectedItemPosition();
+
+        work = works.get(keys.get(index));
+        note.setText(work.getNote());
+        tics = work.getTime() == 0 ? System.currentTimeMillis() : work.getTime();
+
 
     }
 

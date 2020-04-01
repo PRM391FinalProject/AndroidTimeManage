@@ -3,7 +3,7 @@ package entity;
 import java.util.Date;
 
 public class U1Work extends Work {
-    private Date deadLine;
+    private String deadLine;
     private boolean notice;
 private boolean rest;
 
@@ -15,11 +15,11 @@ private boolean rest;
         this.rest = rest;
     }
 
-    public Date getDeadLine() {
+    public String getDeadLine() {
         return deadLine;
     }
 
-    public void setDeadLine(Date deadLine) {
+    public void setDeadLine(String deadLine) {
         this.deadLine = deadLine;
     }
 
@@ -34,7 +34,14 @@ private boolean rest;
     public U1Work() {
     }
 
-    public U1Work(String name, long time, String note, int type, Date deadLine, boolean notice, boolean rest) {
+    public U1Work(long time, String note, int type, String deadLine, boolean notice, boolean rest) {
+        super(time, note, type);
+        this.deadLine = deadLine;
+        this.notice = notice;
+        this.rest = rest;
+    }
+
+    public U1Work(String name, long time, String note, int type, String deadLine, boolean notice, boolean rest) {
         super(name, time, note, type);
         this.deadLine = deadLine;
         this.notice = notice;

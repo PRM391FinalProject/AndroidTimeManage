@@ -14,6 +14,17 @@ public class U234Work extends Work{
     public U234Work() {
     }
 
+    public U234Work(long time, String note, int type, boolean t2, boolean t3, boolean t4, boolean t5, boolean t6, boolean t7, boolean CN) {
+        super(time, note, type);
+        T2 = t2;
+        T3 = t3;
+        T4 = t4;
+        T5 = t5;
+        T6 = t6;
+        T7 = t7;
+        this.CN = CN;
+    }
+
     public U234Work(String name, long time, String note, int type, boolean t2, boolean t3, boolean t4, boolean t5, boolean t6, boolean t7, boolean CN) {
         super(name, time, note, type);
         T2 = t2;

@@ -1,5 +1,6 @@
 package com.example.finalpjtimemanage;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,95 +15,125 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import entity.HandlingDataFile;
+import entity.U1Work;
 import entity.Work;
 
 public class MainActivity extends AppCompatActivity {
-    public static int index;
+    public static ArrayList<String> keys;
     public static boolean EDIT_FLAG = false;
-    public static HandlingDataFile handle;
+    //public static HandlingDataFile handle;
     public static long tics = 0;
-    Timer timer;
+    public static Timer timer;
     public static TextView note;
     public static TextView time;
     public static Spinner spinnerWork;
+    public static DatabaseReference db;
+    public static int index;
+    public static LinkedHashMap<String, Work> works;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        works = new LinkedHashMap<>();
+        db = FirebaseDatabase.getInstance().getReference().child("Works");
 
-        if (handle == null) handle = new HandlingDataFile();
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                works.clear();
+                final List<String> name = new ArrayList<>();
+                for (DataSnapshot item : dataSnapshot.getChildren()
+                ) {
+                    works.put(item.getKey(), item.getValue(U1Work.class));
+                    name.add(item.getValue(U1Work.class).getName());
+                }
+                keys = new ArrayList<>(works.keySet());
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, name);
+                for(int i=0;i<arrayAdapter.getCount();i++){
+                    System.out.println(arrayAdapter.getItem(i));
+                }
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerWork.setAdapter(arrayAdapter);
+
+                index = 0;
+
+                //get key
+                String key = keys.get(index);
+                note.setText(works.get(key).getNote());
+
+                //Timer
+                tics = works.get(key).getTime() == 0 ? System.currentTimeMillis() : works.get(key).getTime();
+                timer = new Timer();
+                timer.schedule(new firstTask(), 0, 500);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         note = findViewById(R.id.tvNote);
         time = findViewById(R.id.tvTimer);
+
+        //Spinner action
         spinnerWork = findViewById(R.id.spWorks);
+        spinnerWork.post(new Runnable() {
+            @Override
+            public void run() {
+                MainSpinnerInteractListener listener = new MainSpinnerInteractListener();
+                spinnerWork.setOnItemSelectedListener(listener);
 
-        ArrayList<Work> works;
-
-        //check current data
-        if (handle.getWorks() != null) {
-            works = handle.getWorks();
-        } else {
-            //get data from file
-            works = handle.GetDataWork();
-        }
-        if (!works.isEmpty()) {
-            spinnerWork.post(new Runnable() {
-                @Override
-                public void run() {
-                    MainSpinnerInteractListener listener = new MainSpinnerInteractListener();
-                    spinnerWork.setOnItemSelectedListener(listener);
-
-                }
-            });
-            //spinnerWork.setOnTouchListener(listener);
-            handle.setWorks(works);
-            List<String> workTitles = new ArrayList<>();
-            for (int i = 0; i < works.size(); i++) {
-                workTitles.add(works.get(i).getName());
             }
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, workTitles);
-
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            spinnerWork.setAdapter(dataAdapter);
-
-            note.setText(handle.getWorks().get(index).getNote());
-        }
-
-        //Timer
-        tics = handle.getWorks().get(index).getTime() == 0 ? System.currentTimeMillis() : handle.getWorks().get(index).getTime();
-
-        timer = new Timer();
-        timer.schedule(new firstTask(), 0, 500);
+        });
 
     }
 
 
     public void btnNextOnClick(View view) {
-        if (index < handle.getWorks().size() - 1) {
-            handle.getWorks().get(index).setTime(tics);
-            index++;
-            spinnerWork.setSelection(index);
-            note.setText(handle.getWorks().get(index).getNote());
-            tics = handle.getWorks().get(index).getTime() == 0 ? System.currentTimeMillis() : handle.getWorks().get(index).getTime();
+        index = spinnerWork.getSelectedItemPosition();
+        String key = keys.get(index);
+        if (index < works.size() - 1) {
 
+            //save time
+            works.get(key).setTime(tics);
+            index++;
+            key = keys.get(index);
+            Work work = works.get(key);
+            spinnerWork.setSelection(index);
+            note.setText(work.getNote());
+            tics = work.getTime() == 0 ? System.currentTimeMillis() : work.getTime();
         }
     }
 
+
+
     public void btnPrevOnClick(View view) {
+        index = spinnerWork.getSelectedItemPosition();
+        String key = keys.get(index);
         if (index > 0) {
-            handle.getWorks().get(index).setTime(tics);
+            //save time
+            works.get(key).setTime(tics);
             index--;
+            key = keys.get(index);
+            Work work = works.get(key);
             spinnerWork.setSelection(index);
-            note.setText(handle.getWorks().get(index).getNote());
-            tics = handle.getWorks().get(index).getTime() == 0 ? System.currentTimeMillis() : handle.getWorks().get(index).getTime();
+            note.setText(work.getNote());
+            tics = work.getTime() == 0 ? System.currentTimeMillis() : work.getTime();
         }
     }
 
@@ -159,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //timer
-    final Handler h = new Handler(new Callback() {
+    static final Handler h = new Handler(new Callback() {
 
         @Override
         public boolean handleMessage(Message msg) {
@@ -173,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-    class firstTask extends TimerTask {
+    public static class firstTask extends TimerTask {
 
         @Override
         public void run() {

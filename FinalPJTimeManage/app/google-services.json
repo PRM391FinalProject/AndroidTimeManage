@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "191438381724",
+    "firebase_url": "https://timemanagefinalpj.firebaseio.com",
+    "project_id": "timemanagefinalpj",
+    "storage_bucket": "timemanagefinalpj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191438381724:android:354feaeeac506b16ae0359",
+        "android_client_info": {
+          "package_name": "com.example.finalpjtimemanage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "191438381724-dinf9lb9umk0sgkqccgltiai4esd39ce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCehy6bcSYyEqu5o7k1k82-dJWAyNH767U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "191438381724-dinf9lb9umk0sgkqccgltiai4esd39ce.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
